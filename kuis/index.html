@@ -1,1 +1,65 @@
-<!DOCTYPE html><html><head><meta charset='utf-8'><title>Kuis</title></head><body><h1>Kuis</h1><p>Mode ini sedang dibuat...</p></body></html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kuis Emosi</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fff0f5; padding: 20px; text-align: center; }
+    h1 { color: #c71585; }
+    #kuis { margin-top: 20px; }
+    button { margin: 10px; padding: 10px 20px; border-radius: 10px; border: none; background-color: #ff69b4; color: white; cursor: pointer; }
+    button:hover { background-color: #ff1493; }
+  </style>
+</head>
+<body>
+  <h1>🧠 Kuis Emosi</h1>
+  <p>Tentukan jumlah soal:</p>
+  <input type="number" id="jumlah" value="3" min="1" max="10">
+  <button onclick="mulaiKuis()">Mulai</button>
+  <div id="kuis"></div>
+
+  <script>
+    const soal = [
+      { soal: "Apa warna cinta?", pilihan: ["Merah", "Biru", "Hijau", "Hitam"], benar: "Merah" },
+      { soal: "Berapa huruf dalam kata 'sayang'?", pilihan: ["5", "6", "7", "8"], benar: "6" },
+      { soal: "Apa lawan kata 'setia'?", pilihan: ["Jujur", "Curang", "Sayang", "Lupa"], benar: "Curang" },
+      { soal: "Cinta itu...?", pilihan: ["Ribet", "Indah", "Sulit", "Asam"], benar: "Indah" },
+      { soal: "Hari valentine tanggal?", pilihan: ["14 Feb", "14 Mar", "25 Des", "1 Jan"], benar: "14 Feb" }
+    ];
+
+    let index = 0;
+    let skor = 0;
+    let kuisSoal = [];
+
+    function mulaiKuis() {
+      index = 0;
+      skor = 0;
+      const jumlah = parseInt(document.getElementById('jumlah').value);
+      kuisSoal = [...soal].sort(() => 0.5 - Math.random()).slice(0, jumlah);
+      tampilSoal();
+    }
+
+    function tampilSoal() {
+      const div = document.getElementById("kuis");
+      div.innerHTML = "";
+      if (index >= kuisSoal.length) {
+        div.innerHTML = `<h2>Skor Kamu: ${skor} / ${kuisSoal.length}</h2>`;
+        return;
+      }
+      const data = kuisSoal[index];
+      const soalHtml = `<h3>${data.soal}</h3>`;
+      div.innerHTML = soalHtml;
+      data.pilihan.forEach(pil => {
+        const btn = document.createElement("button");
+        btn.innerText = pil;
+        btn.onclick = () => {
+          if (pil === data.benar) skor++;
+          index++;
+          tampilSoal();
+        };
+        div.appendChild(btn);
+      });
+    }
+  </script>
+</body>
+</html>

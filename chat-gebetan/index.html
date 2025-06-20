@@ -1,1 +1,60 @@
-<!DOCTYPE html><html><head><meta charset='utf-8'><title>Chat Gebetan</title></head><body><h1>Chat Gebetan</h1><p>Mode ini sedang dibuat...</p></body></html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat Gebetan</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #e0f7fa; padding: 20px; text-align: center; }
+    .chat-box { max-width: 500px; margin: auto; background: #ffffff; border-radius: 10px; padding: 15px; box-shadow: 0 0 10px #ccc; text-align: left; }
+    .chat { margin: 10px 0; }
+    .gebetan { color: teal; font-weight: bold; }
+    .kamu { text-align: right; color: #444; font-weight: bold; }
+    .pilihan { margin-top: 15px; text-align: center; }
+    button { margin: 5px; padding: 10px 15px; border: none; background: #00bcd4; color: white; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #0097a7; }
+  </style>
+</head>
+<body>
+  <h2>🧃 Chat Gebetan</h2>
+  <div class="chat-box" id="chatBox">
+    <div class="chat gebetan">Gebetan: Hai, kamu lagi ngapain?</div>
+  </div>
+  <div class="pilihan" id="pilihan">
+    <button onclick="balas('Lagi mikirin kamu')">Mikirin kamu</button>
+    <button onclick="balas('Baru bangun, hehe')">Baru bangun</button>
+    <button onclick="balas('Mau makan nih, ikut?')">Mau makan</button>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById("chatBox");
+    const pilihan = document.getElementById("pilihan");
+
+    function balas(teks) {
+      const kamu = document.createElement("div");
+      kamu.className = "chat kamu";
+      kamu.textContent = "Kamu: " + teks;
+      chatBox.appendChild(kamu);
+      pilihan.innerHTML = "";
+
+      setTimeout(() => {
+        const gebetan = document.createElement("div");
+        gebetan.className = "chat gebetan";
+
+        if (teks.includes("mikirin")) {
+          gebetan.textContent = "Gebetan: Halah modus kamu 🙈";
+          pilihan.innerHTML = '<button onclick="balas(\'Modus tapi jujur\')">Modus tapi jujur</button>';
+        } else if (teks.includes("bangun")) {
+          gebetan.textContent = "Gebetan: Wah, mimpiin aku nggak? 😏";
+          pilihan.innerHTML = '<button onclick="balas(\'Iya dong, tiap malam\')">Iya dong</button>';
+        } else {
+          gebetan.textContent = "Gebetan: Wah enak dong! Aku mau dong~";
+          pilihan.innerHTML = '<button onclick="balas(\'Yuk, aku jemput\')">Yuk, aku jemput</button>';
+        }
+
+        chatBox.appendChild(gebetan);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

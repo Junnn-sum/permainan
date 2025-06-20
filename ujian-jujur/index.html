@@ -1,1 +1,61 @@
-<!DOCTYPE html><html><head><meta charset='utf-8'><title>Ujian Jujur</title></head><body><h1>Ujian Jujur</h1><p>Mode ini sedang dibuat...</p></body></html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Ujian Kejujuran</title>
+  <style>
+    body { font-family: sans-serif; background: #fef9e7; text-align: center; padding: 40px; }
+    .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+    h2 { color: #d35400; }
+    button { background: #f39c12; color: white; border: none; padding: 10px 20px; margin: 10px; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #e67e22; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📚 Ujian Kejujuran</h2>
+    <p id="soal">Pertanyaan: Pernah bohong ke pasangan?</p>
+    <div id="jawaban">
+      <button onclick="jawab('Ya')">Ya</button>
+      <button onclick="jawab('Tidak')">Tidak</button>
+    </div>
+    <p id="hasil"></p>
+  </div>
+
+  <script>
+    const soal = document.getElementById("soal");
+    const hasil = document.getElementById("hasil");
+    const jawabanDiv = document.getElementById("jawaban");
+
+    const daftarSoal = [
+      "Pernah ngestalk mantan?",
+      "Pernah pura-pura tidur biar nggak bales chat?",
+      "Pernah bilang 'oke' padahal kesel?",
+      "Pernah bilang 'aku gak apa-apa' padahal sakit hati?",
+      "Pernah screenshot chat pasangan?"
+    ];
+
+    let index = 0;
+    let poin = 0;
+
+    function jawab(pilihan) {
+      if (pilihan === 'Ya') poin++;
+
+      if (index < daftarSoal.length) {
+        soal.textContent = "Pertanyaan: " + daftarSoal[index];
+        index++;
+      } else {
+        soal.textContent = "Tes selesai!";
+        jawabanDiv.style.display = "none";
+        hasil.textContent = `Skor Kejujuranmu: ${5 - poin}/5 — ${penilaian(5 - poin)}`;
+      }
+    }
+
+    function penilaian(nilai) {
+      if (nilai === 5) return "Kamu jujur banget! 🏅";
+      if (nilai >= 3) return "Lumayan jujur~ 😇";
+      return "Hmm... banyak yang ditutupi ya 😅";
+    }
+  </script>
+</body>
+</html>

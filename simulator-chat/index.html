@@ -1,1 +1,62 @@
-<!DOCTYPE html><html><head><meta charset='utf-8'><title>Simulator Chat</title></head><body><h1>Simulator Chat</h1><p>Mode ini sedang dibuat...</p></body></html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulator Chat Ngambek</title>
+  <style>
+    body { font-family: sans-serif; background: #fff0f5; padding: 20px; text-align: center; }
+    .chat-box { max-width: 500px; margin: auto; background: white; border-radius: 10px; padding: 20px; text-align: left; box-shadow: 0 0 10px #ccc; }
+    .chat { margin: 10px 0; }
+    .pacar { color: deeppink; font-weight: bold; }
+    .kamu { text-align: right; color: #444; font-weight: bold; }
+    .pilihan { margin-top: 15px; }
+    button { margin: 5px; padding: 10px 15px; border: none; background: hotpink; color: white; border-radius: 8px; cursor: pointer; }
+    button:hover { background: deeppink; }
+  </style>
+</head>
+<body>
+  <h2>💬 Simulator Chat Ngambek</h2>
+  <div class="chat-box" id="chatBox">
+    <div class="chat pacar">Pacar: Kamu berubah ya...</div>
+  </div>
+  <div class="pilihan" id="pilihan">
+    <button onclick="balas('Kamu kenapa sih ngomong gitu?')">Kamu kenapa sih?</button>
+    <button onclick="balas('Aku masih sama kayak dulu kok')">Aku masih sama kok</button>
+    <button onclick="balas('Yaudah kalau kamu mikirnya gitu')">Yaudah deh</button>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById("chatBox");
+    const pilihan = document.getElementById("pilihan");
+
+    function balas(teks) {
+      const kamu = document.createElement("div");
+      kamu.className = "chat kamu";
+      kamu.textContent = "Kamu: " + teks;
+      chatBox.appendChild(kamu);
+      pilihan.innerHTML = "";
+
+      setTimeout(() => {
+        const pacar = document.createElement("div");
+        pacar.className = "chat pacar";
+
+        if (teks.includes("kenapa")) {
+          pacar.textContent = "Pacar: Kamu nggak peka sama perasaanku...";
+          pilihan.innerHTML = '<button onclick="balas(\'Maaf ya, aku beneran nggak nyadar\')">Maaf ya</button>' +
+                              '<button onclick="balas(\'Pekanya gimana coba?\')">Pekanya gimana?</button>';
+        } else if (teks.includes("sama")) {
+          pacar.textContent = "Pacar: Nggak... kamu nggak kayak dulu...";
+          pilihan.innerHTML = '<button onclick="balas(\'Aku bisa buktiin kalau aku masih sama\')">Aku bisa buktiin</button>' +
+                              '<button onclick="balas(\'Terserah kamu deh\')">Terserah deh</button>';
+        } else {
+          pacar.textContent = "Pacar: Jadi gitu ya kamu sekarang...";
+          pilihan.innerHTML = '<button onclick="balas(\'Aku cuma capek, bukan berubah\')">Aku cuma capek</button>' +
+                              '<button onclick="balas(\'Maaf, aku salah\')">Maaf, aku salah</button>';
+        }
+        chatBox.appendChild(pacar);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
